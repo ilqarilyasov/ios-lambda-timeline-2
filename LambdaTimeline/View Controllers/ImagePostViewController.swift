@@ -26,6 +26,20 @@ class ImagePostViewController: ShiftableViewController {
         print("noFilterImageViewTapped")
     }
     
+    // 5. Update Image function added
+    
+    func updateImage() {
+        guard let originalImage = originalImage else { return }
+        
+        imageView.image = originalImage
+        noFilterImageView.image = UIImage.scaleImage(image: originalImage)
+        vintageImageView.image = apply(filter: vintageFilter, for: originalImage)
+        monoImageView.image = apply(filter: monoFilter, for: originalImage)
+        noirImageView.image = apply(filter: noirFilter, for: originalImage)
+        coolImageView.image = apply(filter: coolFilter, for: originalImage)
+        warmImageView.image = apply(filter: warmFilter, for: originalImage)
+    }
+    
     func updateViews() {
         
         guard let imageData = imageData,
@@ -62,6 +76,8 @@ class ImagePostViewController: ShiftableViewController {
     @IBAction func createPost(_ sender: Any) {
         
         view.endEditing(true)
+        
+        
         
         guard let imageData = imageView.image?.jpegData(compressionQuality: 0.1),
             let title = titleTextField.text, title != "" else {
@@ -144,7 +160,12 @@ class ImagePostViewController: ShiftableViewController {
     @IBOutlet weak var warmLabel: UILabel!
     @IBOutlet weak var warmImageView: UIImageView!
     
-    // 3. Filters added
+    // 4. Properties added
+    private var originalImage: UIImage? {
+        didSet{ updateImage() }
+    }
+    
+    // 3. Filters and context added
     private let vintageFilter = CIFilter(name: "CIPhotoEffectChrome")!
     private let monoFilter = CIFilter(name: "CIPhotoEffectMono")!
     private let noirFilter = CIFilter(name: "CIPhotoEffectNoir")!
@@ -163,7 +184,10 @@ class ImagePostViewController: ShiftableViewController {
         guard let filteredCIImage = filter.outputImage else { return image }
         guard let filteredCGImage = context.createCGImage(filteredCIImage, from: filteredCIImage.extent) else { return image }
         
-        return UIImage(cgImage: filteredCGImage)
+        let filteredImage = UIImage(cgImage: filteredCGImage)
+        let scaledImage = UIImage.scaleImage(image: filteredImage)
+        
+        return scaledImage
     }
 }
 
@@ -177,7 +201,7 @@ extension ImagePostViewController: UIImagePickerControllerDelegate, UINavigation
         
         guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
         
-        imageView.image = image
+        originalImage = image // 6. Changed
         
         setImageViewHeight(with: image.ratio)
     }
@@ -185,4 +209,23 @@ extension ImagePostViewController: UIImagePickerControllerDelegate, UINavigation
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
+}
+
+// 7. ScaleImage added
+
+extension UIImage {
+    
+    class func scaleImage(image: UIImage) -> UIImage {
+        
+        let size = CGSize(width: 50, height: 50)
+        UIGraphicsBeginImageContext(size)
+        
+        image.draw(in: CGRect(origin: CGPoint.zero, size: size))
+        
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        
+        UIGraphicsEndImageContext()
+        return scaledImage!
+    }
+    
 }

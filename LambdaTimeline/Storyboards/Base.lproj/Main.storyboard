@@ -165,7 +165,7 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="YhX-CC-VAi">
                                                         <rect key="frame" x="0.0" y="0.0" width="56" height="76"/>
                                                         <subviews>
-                                                            <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6Mh-W5-Sov">
+                                                            <imageView multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6Mh-W5-Sov">
                                                                 <rect key="frame" x="0.0" y="0.0" width="56" height="56"/>
                                                                 <gestureRecognizers/>
                                                                 <constraints>
@@ -190,7 +190,7 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Ft1-9D-KMp">
                                                         <rect key="frame" x="64" y="0.0" width="55.5" height="76"/>
                                                         <subviews>
-                                                            <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rJO-KN-kDz">
+                                                            <imageView multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rJO-KN-kDz">
                                                                 <rect key="frame" x="0.0" y="0.0" width="55.5" height="56"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="rJO-KN-kDz" secondAttribute="height" multiplier="1:1" id="rcX-be-XOW"/>
@@ -207,7 +207,7 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Cv1-OF-vnh">
                                                         <rect key="frame" x="127.5" y="0.0" width="56" height="76"/>
                                                         <subviews>
-                                                            <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="U8F-eM-tVA">
+                                                            <imageView multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="U8F-eM-tVA">
                                                                 <rect key="frame" x="0.0" y="0.0" width="56" height="56"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="U8F-eM-tVA" secondAttribute="height" multiplier="1:1" id="hoV-Hm-4bJ"/>
@@ -227,7 +227,7 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="mUv-6T-jEY">
                                                         <rect key="frame" x="191.5" y="0.0" width="56" height="76"/>
                                                         <subviews>
-                                                            <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="q0S-Rc-znH">
+                                                            <imageView multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="q0S-Rc-znH">
                                                                 <rect key="frame" x="0.0" y="0.0" width="56" height="56"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="q0S-Rc-znH" secondAttribute="height" multiplier="1:1" id="e09-tb-rB1"/>
@@ -244,7 +244,7 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="HcC-M3-BYg">
                                                         <rect key="frame" x="255.5" y="0.0" width="55.5" height="76"/>
                                                         <subviews>
-                                                            <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="USQ-bO-mJi">
+                                                            <imageView multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="USQ-bO-mJi">
                                                                 <rect key="frame" x="0.0" y="0.0" width="55.5" height="56"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="USQ-bO-mJi" secondAttribute="height" multiplier="1:1" id="CJw-wJ-R1p"/>
@@ -266,7 +266,7 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="2yL-6c-Ymb">
                                                         <rect key="frame" x="319" y="0.0" width="56" height="76"/>
                                                         <subviews>
-                                                            <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Glo-gg-vEB">
+                                                            <imageView multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Glo-gg-vEB">
                                                                 <rect key="frame" x="0.0" y="0.0" width="56" height="56"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="Glo-gg-vEB" secondAttribute="height" multiplier="1:1" id="T5B-cn-0rt"/>
