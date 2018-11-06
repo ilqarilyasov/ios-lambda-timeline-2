@@ -16,28 +16,116 @@ class ImagePostViewController: ShiftableViewController {
         
         setImageViewHeight(with: 1.0)
         
-        _ = UITapGestureRecognizer(target: noFilterImageView, action: #selector(noFilterImageViewTapped))
+        hideLabels()
+        
+        let noFilterTapGesture = UITapGestureRecognizer(target: self, action: #selector(noFilterImageViewTapped))
+        noFilterImageView.addGestureRecognizer(noFilterTapGesture)
+        
+        let vintageTapGesture = UITapGestureRecognizer(target: self, action: #selector(vintageImageViewTapped))
+        vintageImageView.addGestureRecognizer(vintageTapGesture)
+        
+        let monoTapGesture = UITapGestureRecognizer(target: self, action: #selector(monoImageViewTapped))
+        monoImageView.addGestureRecognizer(monoTapGesture)
+        
+        let noirTapGesture = UITapGestureRecognizer(target: self, action: #selector(noirImageViewTapped))
+        noirImageView.addGestureRecognizer(noirTapGesture)
+        
+        let coolTapGesture = UITapGestureRecognizer(target: self, action: #selector(coolImageViewTapped))
+        coolImageView.addGestureRecognizer(coolTapGesture)
+        
+        let warmTapGesture = UITapGestureRecognizer(target: self, action: #selector(warmImageViewTapped))
+        warmImageView.addGestureRecognizer(warmTapGesture)
         
         updateViews()
+    }
+    
+    // 9. Added
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        hideLabels()
     }
     
     
     @objc func noFilterImageViewTapped() {
         print("noFilterImageViewTapped")
+        guard let originalImage = originalImage else { return }
+        imageView.image = originalImage
+    }
+    
+    @objc func vintageImageViewTapped() {
+        print("vintageImageViewTapped")
+        guard let originalImage = originalImage else { return }
+        let filteredImage = apply(filter: vintageFilter, for: originalImage)
+        imageView.image = filteredImage
+    }
+    
+    @objc func monoImageViewTapped() {
+        print("monoImageViewTapped")
+    }
+    
+    @objc func noirImageViewTapped() {
+        print("noirImageViewTapped")
+    }
+    
+    @objc func coolImageViewTapped() {
+        print("coolImageViewTapped")
+    }
+    
+    @objc func warmImageViewTapped() {
+        print("warmImageViewTapped")
     }
     
     // 5. Update Image function added
     
     func updateImage() {
+        let size = CGSize(width: 60, height: 60)
         guard let originalImage = originalImage else { return }
         
         imageView.image = originalImage
-        noFilterImageView.image = UIImage.scaleImage(image: originalImage)
-        vintageImageView.image = apply(filter: vintageFilter, for: originalImage)
-        monoImageView.image = apply(filter: monoFilter, for: originalImage)
-        noirImageView.image = apply(filter: noirFilter, for: originalImage)
-        coolImageView.image = apply(filter: coolFilter, for: originalImage)
-        warmImageView.image = apply(filter: warmFilter, for: originalImage)
+        noFilterImageView.image = UIImage.scaleImage(image: originalImage, size: size)
+        
+        let filteredVintage: UIImage = apply(filter: vintageFilter, for: originalImage)
+        let scaledVintage = UIImage.scaleImage(image: filteredVintage, size: size)
+        vintageImageView.image = scaledVintage
+        
+        let filteredMono: UIImage = apply(filter: monoFilter, for: originalImage)
+        let scaledMono = UIImage.scaleImage(image: filteredMono, size: size)
+        monoImageView.image = scaledMono
+        
+        let filteredNoir: UIImage = apply(filter: noirFilter, for: originalImage)
+        let scaledNoir = UIImage.scaleImage(image: filteredNoir, size: size)
+        noirImageView.image = scaledNoir
+        
+        let filteredCool: UIImage = apply(filter: noirFilter, for: originalImage)
+        let scaledCool = UIImage.scaleImage(image: filteredCool, size: size)
+        coolImageView.image = scaledCool
+        
+        let filteredWarm: UIImage = apply(filter: noirFilter, for: originalImage)
+        let scaledWarm = UIImage.scaleImage(image: filteredWarm, size: size)
+        warmImageView.image = scaledWarm
+    }
+    
+    // 8. Hide labels
+    
+    private func hideLabels(){
+        if originalImage == nil {
+            addFilterLabel.isHidden = true
+            noFilterLabel.isHidden = true
+            vintageLabel.isHidden = true
+            monoLabel.isHidden = true
+            noirLabel.isHidden = true
+            coolLabel.isHidden = true
+            warmLabel.isHidden = true
+        } else {
+            addFilterLabel.isHidden = false
+            noFilterLabel.isHidden = false
+            vintageLabel.isHidden = false
+            monoLabel.isHidden = false
+            noirLabel.isHidden = false
+            coolLabel.isHidden = false
+            warmLabel.isHidden = false
+        }
     }
     
     func updateViews() {
@@ -184,10 +272,7 @@ class ImagePostViewController: ShiftableViewController {
         guard let filteredCIImage = filter.outputImage else { return image }
         guard let filteredCGImage = context.createCGImage(filteredCIImage, from: filteredCIImage.extent) else { return image }
         
-        let filteredImage = UIImage(cgImage: filteredCGImage)
-        let scaledImage = UIImage.scaleImage(image: filteredImage)
-        
-        return scaledImage
+        return UIImage(cgImage: filteredCGImage)
     }
 }
 
@@ -209,23 +294,4 @@ extension ImagePostViewController: UIImagePickerControllerDelegate, UINavigation
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
-}
-
-// 7. ScaleImage added
-
-extension UIImage {
-    
-    class func scaleImage(image: UIImage) -> UIImage {
-        
-        let size = CGSize(width: 50, height: 50)
-        UIGraphicsBeginImageContext(size)
-        
-        image.draw(in: CGRect(origin: CGPoint.zero, size: size))
-        
-        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
-        
-        UIGraphicsEndImageContext()
-        return scaledImage!
-    }
-    
 }

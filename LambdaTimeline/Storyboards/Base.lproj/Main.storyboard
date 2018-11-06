@@ -171,9 +171,6 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="6Mh-W5-Sov" secondAttribute="height" multiplier="1:1" id="13l-yo-x5i"/>
                                                                 </constraints>
-                                                                <connections>
-                                                                    <outletCollection property="gestureRecognizers" destination="G6G-fD-6Nl" appends="YES" id="aNR-NS-Ap2"/>
-                                                                </connections>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="No Filter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="trb-CY-VB6">
                                                                 <rect key="frame" x="0.0" y="64" width="56" height="12"/>
@@ -346,7 +343,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XXa-A2-VJT" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="G6G-fD-6Nl"/>
             </objects>
             <point key="canvasLocation" x="2095" y="-220"/>
         </scene>
