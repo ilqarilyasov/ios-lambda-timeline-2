@@ -418,15 +418,15 @@ class ImagePostViewController: ShiftableViewController {
         } else if moreFiltersSegmentedControl.selectedSegmentIndex == 2 {
             firstSliderLabel.text = "Center"
             // [150 150]
-            firstSlider.minimumValue = 2
-            firstSlider.maximumValue = 30
-            firstSlider.value = 6
+            firstSlider.minimumValue = 0
+            firstSlider.maximumValue = 300
+            firstSlider.value = 150
             
             secondSliderLabel.isHidden = false
             secondSlider.isHidden = false
             secondSliderLabel.text = "Radius"
-            secondSlider.minimumValue = 0.01
-            secondSlider.maximumValue = 1000
+            secondSlider.minimumValue = 0
+            secondSlider.maximumValue = 300
             secondSlider.value = 150
         }
     }
@@ -449,12 +449,27 @@ class ImagePostViewController: ShiftableViewController {
             guard let filteredCGImage = context.createCGImage(filteredCIImage, from: filteredCIImage.extent) else { return }
             imageView.image = UIImage(cgImage: filteredCGImage)
         } else if moreFiltersSegmentedControl.selectedSegmentIndex == 2 {
-            
+            holeDistortionFilter.setValue(ciImage, forKey: kCIInputImageKey)
+            holeDistortionFilter.setValue([firstSlider.value, firstSlider.value], forKey: "inputCenter") // Unclear
+            guard let filteredCIImage = holeDistortionFilter.outputImage else { return }
+            guard let filteredCGImage = context.createCGImage(filteredCIImage, from: filteredCIImage.extent) else { return }
+            imageView.image = UIImage(cgImage: filteredCGImage)
         }
     }
     
     
     @IBAction func secondSliderAction(_ sender: Any) {
+        guard let image = imageView.image else { return }
+        guard let cgImage = image.cgImage else { return }
+        let ciImage = CIImage(cgImage: cgImage)
+        
+        if moreFiltersSegmentedControl.selectedSegmentIndex == 2 {
+            holeDistortionFilter.setValue(ciImage, forKey: kCIInputImageKey)
+            holeDistortionFilter.setValue(secondSlider.value, forKey: "inputRadius")
+            guard let filteredCIImage = holeDistortionFilter.outputImage else { return }
+            guard let filteredCGImage = context.createCGImage(filteredCIImage, from: filteredCIImage.extent) else { return }
+            imageView.image = UIImage(cgImage: filteredCGImage)
+        }
     }
     
     
