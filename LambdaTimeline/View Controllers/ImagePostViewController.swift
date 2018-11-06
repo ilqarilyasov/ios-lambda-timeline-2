@@ -328,6 +328,41 @@ class ImagePostViewController: ShiftableViewController {
     // 11. Actions
     
     @IBAction func moreButtonTapped(_ sender: Any) {
+        
+        if moreFiltersSegmentedControl.selectedSegmentIndex == 0 {
+            hideUnhide()
+            if secondSlider.isHidden {
+                secondSlider.isHidden = false
+            } else {
+                secondSlider.isHidden = true
+            }
+            
+            if secondSliderLabel.isHidden {
+                secondSliderLabel.isHidden = false
+            } else {
+                secondSliderLabel.isHidden = true
+            }
+        } else if moreFiltersSegmentedControl.selectedSegmentIndex == 1 {
+            hideUnhide()
+            if secondSlider.isHidden {
+                secondSlider.isHidden = false
+            } else {
+                secondSlider.isHidden = true
+            }
+            
+            if secondSliderLabel.isHidden {
+                secondSliderLabel.isHidden = false
+            } else {
+                secondSliderLabel.isHidden = true
+            }
+        } else if moreFiltersSegmentedControl.selectedSegmentIndex == 2 {
+            hideUnhide()
+        } else {
+            hideUnhide()
+        }
+    }
+    
+    func hideUnhide() {
         if moreFiltersSegmentedControl.isHidden {
             moreFiltersSegmentedControl.isHidden = false
         } else {
@@ -346,6 +381,18 @@ class ImagePostViewController: ShiftableViewController {
             firstSlider.isHidden = true
         }
         
+        if secondSlider.isHidden {
+            secondSlider.isHidden = false
+        } else {
+            secondSlider.isHidden = true
+        }
+        
+        if secondSliderLabel.isHidden {
+            secondSliderLabel.isHidden = false
+        } else {
+            secondSliderLabel.isHidden = true
+        }
+        
         if moreButton.titleLabel?.text == "More" {
             moreButton.setTitle("Close", for: .normal)
         } else {
@@ -360,12 +407,14 @@ class ImagePostViewController: ShiftableViewController {
             firstSlider.maximumValue = 3.141592653589793
             firstSlider.value = 0
             secondSlider.isHidden = true
+            secondSliderLabel.isHidden = true
         } else if moreFiltersSegmentedControl.selectedSegmentIndex == 1 {
             firstSliderLabel.text = "Levels"
             firstSlider.minimumValue = 2
             firstSlider.maximumValue = 30
             firstSlider.value = 6
             secondSlider.isHidden = true
+            secondSliderLabel.isHidden = true
         } else if moreFiltersSegmentedControl.selectedSegmentIndex == 2 {
             firstSliderLabel.text = "Center"
             // [150 150]
@@ -399,7 +448,7 @@ class ImagePostViewController: ShiftableViewController {
             guard let filteredCIImage = posterizeFilter.outputImage else { return }
             guard let filteredCGImage = context.createCGImage(filteredCIImage, from: filteredCIImage.extent) else { return }
             imageView.image = UIImage(cgImage: filteredCGImage)
-        } else if moreFiltersSegmentedControl.selectedSegmentIndex == 1 {
+        } else if moreFiltersSegmentedControl.selectedSegmentIndex == 2 {
             
         }
     }
