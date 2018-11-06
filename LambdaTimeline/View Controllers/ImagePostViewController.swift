@@ -16,7 +16,14 @@ class ImagePostViewController: ShiftableViewController {
         
         setImageViewHeight(with: 1.0)
         
+        _ = UITapGestureRecognizer(target: noFilterImageView, action: #selector(noFilterImageViewTapped))
+        
         updateViews()
+    }
+    
+    
+    @objc func noFilterImageViewTapped() {
+        print("noFilterImageViewTapped")
     }
     
     func updateViews() {
@@ -121,6 +128,43 @@ class ImagePostViewController: ShiftableViewController {
     @IBOutlet weak var chooseImageButton: UIButton!
     @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var postButton: UIBarButtonItem!
+    
+    // 1. Added outlets
+    @IBOutlet weak var addFilterLabel: UILabel!
+    @IBOutlet weak var noFilterLabel: UILabel!
+    @IBOutlet weak var noFilterImageView: UIImageView!
+    @IBOutlet weak var vintageLabel: UILabel!
+    @IBOutlet weak var vintageImageView: UIImageView!
+    @IBOutlet weak var monoLabel: UILabel!
+    @IBOutlet weak var monoImageView: UIImageView!
+    @IBOutlet weak var noirLabel: UILabel!
+    @IBOutlet weak var noirImageView: UIImageView!
+    @IBOutlet weak var coolLabel: UILabel!
+    @IBOutlet weak var coolImageView: UIImageView!
+    @IBOutlet weak var warmLabel: UILabel!
+    @IBOutlet weak var warmImageView: UIImageView!
+    
+    // 3. Filters added
+    private let vintageFilter = CIFilter(name: "CIPhotoEffectChrome")!
+    private let monoFilter = CIFilter(name: "CIPhotoEffectMono")!
+    private let noirFilter = CIFilter(name: "CIPhotoEffectNoir")!
+    private let coolFilter = CIFilter(name: "CIPhotoEffectProcess")!
+    private let warmFilter = CIFilter(name: "CIPhotoEffectTransfer")!
+    private let colorControlsFilter = CIFilter(name: "CIColorControls")!
+    private let hueFilter = CIFilter(name: "CIHueAdjust")!
+    private let context = CIContext(options: nil)
+    
+    // 2. Created image filter function
+    private func apply(filter: CIFilter, for image: UIImage) -> UIImage {
+        guard let cgImage = image.cgImage else { return image }
+        let ciImage = CIImage(cgImage: cgImage)
+        
+        filter.setValue(ciImage, forKey: kCIInputImageKey)
+        guard let filteredCIImage = filter.outputImage else { return image }
+        guard let filteredCGImage = context.createCGImage(filteredCIImage, from: filteredCIImage.extent) else { return image }
+        
+        return UIImage(cgImage: filteredCGImage)
+    }
 }
 
 extension ImagePostViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
