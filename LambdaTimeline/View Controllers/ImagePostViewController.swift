@@ -351,14 +351,36 @@ class ImagePostViewController: ShiftableViewController {
     @IBAction func moreFiltersSegmentedControlAction(_ sender: Any) {
         if moreFiltersSegmentedControl.selectedSegmentIndex == 0 {
             firstSliderLabel.text = "Hue"
+            firstSlider.minimumValue = -3.141592653589793
+            firstSlider.maximumValue = 3.141592653589793
+            firstSlider.value = 0
         } else if moreFiltersSegmentedControl.selectedSegmentIndex == 1 {
             firstSliderLabel.text = "Posterize"
+            firstSlider.minimumValue = 2
+            firstSlider.maximumValue = 30
+            firstSlider.value = 6
         }
     }
     
     @IBAction func firstSliderAction(_ sender: Any) {
+        guard let image = imageView.image else { return }
+        guard let cgImage = image.cgImage else { return }
+        let ciImage = CIImage(cgImage: cgImage)
+        
+        if moreFiltersSegmentedControl.selectedSegmentIndex == 0 {
+            hueFilter.setValue(ciImage, forKey: kCIInputImageKey)
+            hueFilter.setValue(firstSlider.value, forKey: kCIInputAngleKey)
+            guard let filteredCIImage = hueFilter.outputImage else { return }
+            guard let filteredCGImage = context.createCGImage(filteredCIImage, from: filteredCIImage.extent) else { return }
+            imageView.image = UIImage(cgImage: filteredCGImage)
+        } else if moreFiltersSegmentedControl.selectedSegmentIndex == 1 {
+            posterizeFilter.setValue(ciImage, forKey: kCIInputImageKey)
+            posterizeFilter.setValue(firstSlider.value, forKey: kCIInputScaleKey)
+            guard let filteredCIImage = posterizeFilter.outputImage else { return }
+            guard let filteredCGImage = context.createCGImage(filteredCIImage, from: filteredCIImage.extent) else { return }
+            imageView.image = UIImage(cgImage: filteredCGImage)
+        }
     }
-    
     
     
     // 4. Properties added
@@ -377,6 +399,7 @@ class ImagePostViewController: ShiftableViewController {
     private let warmFilter = CIFilter(name: "CIPhotoEffectTransfer")!
     private let colorControlsFilter = CIFilter(name: "CIColorControls")!
     private let hueFilter = CIFilter(name: "CIHueAdjust")!
+    private let posterizeFilter = CIFilter(name: "CIColorPosterize")!
     private let context = CIContext(options: nil)
     
     // 2. Created image filter function
