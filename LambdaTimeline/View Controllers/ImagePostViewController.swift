@@ -179,6 +179,8 @@ class ImagePostViewController: ShiftableViewController {
         moreFiltersSegmentedControl.isHidden = true
         firstSliderLabel.isHidden = true
         firstSlider.isHidden = true
+        secondSliderLabel.isHidden = true
+        secondSlider.isHidden = true
     }
     
     // 10. Show labels
@@ -318,6 +320,9 @@ class ImagePostViewController: ShiftableViewController {
     @IBOutlet weak var moreFiltersSegmentedControl: UISegmentedControl!
     @IBOutlet weak var firstSliderLabel: UILabel!
     @IBOutlet weak var firstSlider: UISlider!
+    @IBOutlet weak var secondSliderLabel: UILabel!
+    @IBOutlet weak var secondSlider: UISlider!
+    
     
     
     // 11. Actions
@@ -350,15 +355,30 @@ class ImagePostViewController: ShiftableViewController {
     
     @IBAction func moreFiltersSegmentedControlAction(_ sender: Any) {
         if moreFiltersSegmentedControl.selectedSegmentIndex == 0 {
-            firstSliderLabel.text = "Hue"
+            firstSliderLabel.text = "Angle"
             firstSlider.minimumValue = -3.141592653589793
             firstSlider.maximumValue = 3.141592653589793
             firstSlider.value = 0
+            secondSlider.isHidden = true
         } else if moreFiltersSegmentedControl.selectedSegmentIndex == 1 {
-            firstSliderLabel.text = "Posterize"
+            firstSliderLabel.text = "Levels"
             firstSlider.minimumValue = 2
             firstSlider.maximumValue = 30
             firstSlider.value = 6
+            secondSlider.isHidden = true
+        } else if moreFiltersSegmentedControl.selectedSegmentIndex == 2 {
+            firstSliderLabel.text = "Center"
+            // [150 150]
+            firstSlider.minimumValue = 2
+            firstSlider.maximumValue = 30
+            firstSlider.value = 6
+            
+            secondSliderLabel.isHidden = false
+            secondSlider.isHidden = false
+            secondSliderLabel.text = "Radius"
+            secondSlider.minimumValue = 0.01
+            secondSlider.maximumValue = 1000
+            secondSlider.value = 150
         }
     }
     
@@ -375,11 +395,17 @@ class ImagePostViewController: ShiftableViewController {
             imageView.image = UIImage(cgImage: filteredCGImage)
         } else if moreFiltersSegmentedControl.selectedSegmentIndex == 1 {
             posterizeFilter.setValue(ciImage, forKey: kCIInputImageKey)
-            posterizeFilter.setValue(firstSlider.value, forKey: kCIInputScaleKey)
+            posterizeFilter.setValue(firstSlider.value, forKey: "inputLevels") // Couldn't find right key
             guard let filteredCIImage = posterizeFilter.outputImage else { return }
             guard let filteredCGImage = context.createCGImage(filteredCIImage, from: filteredCIImage.extent) else { return }
             imageView.image = UIImage(cgImage: filteredCGImage)
+        } else if moreFiltersSegmentedControl.selectedSegmentIndex == 1 {
+            
         }
+    }
+    
+    
+    @IBAction func secondSliderAction(_ sender: Any) {
     }
     
     
@@ -400,6 +426,8 @@ class ImagePostViewController: ShiftableViewController {
     private let colorControlsFilter = CIFilter(name: "CIColorControls")!
     private let hueFilter = CIFilter(name: "CIHueAdjust")!
     private let posterizeFilter = CIFilter(name: "CIColorPosterize")!
+    private let holeDistortionFilter = CIFilter(name: "CIHoleDistortion")!
+    
     private let context = CIContext(options: nil)
     
     // 2. Created image filter function
