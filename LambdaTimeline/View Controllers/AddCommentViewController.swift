@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import AVFoundation
 
 class AddCommentViewController: UIViewController {
 
@@ -35,12 +37,15 @@ class AddCommentViewController: UIViewController {
     
     
     @IBAction func record(_ sender: Any) {
+        
     }
     
     @IBAction func play(_ sender: Any) {
+        
     }
     
     @IBAction func send(_ sender: Any) {
+        
     }
     
     @IBOutlet weak var commentTypeSegmentedControl: UISegmentedControl!
