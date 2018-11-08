@@ -28,6 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.makeKeyAndVisible()
         }
         
+        AddCommentViewController.requestRecordPermission()
         
         return true
     }
