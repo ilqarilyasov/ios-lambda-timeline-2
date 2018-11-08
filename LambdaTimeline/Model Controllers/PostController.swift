@@ -51,9 +51,15 @@ class PostController {
         guard let currentUser = Auth.auth().currentUser,
             let author = Author(user: currentUser) else { return }
         
-        let comment = Comment(text: text, author: author)
+        let comment = Comment(audioURL: audioURL, author: author)
         post.comments.append(comment)
         
+        do {
+            let data = try Data(contentsOf: audioURL)
+            store(mediaData: data) { _ in }
+        } catch {
+            NSLog("Error converting audio to data")
+        }
         savePostToFirebase(post)
     }
 
@@ -90,9 +96,10 @@ class PostController {
         ref.setValue(post.dictionaryRepresentation)
     }
 
-    private func store(mediaData: Data, mediaType: MediaType, completion: @escaping (URL?) -> Void) {
+    private func store(mediaData: Data, mediaType: MediaType? = nil, completion: @escaping (URL?) -> Void) {
         
         let mediaID = UUID().uuidString
+        guard let mediaType = mediaType else { return }
         
         let mediaRef = storageRef.child(mediaType.rawValue).child(mediaID)
         
@@ -133,6 +140,4 @@ class PostController {
     let postsRef = Database.database().reference().child("posts")
     
     let storageRef = Storage.storage().reference()
-    
-    
 }

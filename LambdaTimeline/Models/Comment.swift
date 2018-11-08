@@ -37,7 +37,8 @@ class Comment: FirebaseConvertible, Equatable {
     
     init?(dictionary: [String : Any]) {
         guard let text = dictionary[Comment.textKey] as? String,
-            let audioURL = dictionary[Comment.audioURLKey] as? URL,
+            let audioURLString = dictionary[Comment.audioURLKey] as? String,
+            let audioURL = URL(string: audioURLString),
             let authorDictionary = dictionary[Comment.author] as? [String: Any],
             let author = Author(dictionary: authorDictionary),
             let timestampTimeInterval = dictionary[Comment.timestampKey] as? TimeInterval else { return nil }
@@ -49,13 +50,17 @@ class Comment: FirebaseConvertible, Equatable {
     }
     
     var dictionaryRepresentation: [String: Any] {
-        guard let text = text,
-            let audioURL = audioURL else { return [:] }
-        
-        return [Comment.textKey: text,
-                Comment.audioURLKey: audioURL,
-                Comment.author: author.dictionaryRepresentation,
-                Comment.timestampKey: timestamp.timeIntervalSince1970]
+        if let text = text {
+            return [Comment.textKey: text,
+                    Comment.author: author.dictionaryRepresentation,
+                    Comment.timestampKey: timestamp.timeIntervalSince1970]
+        } else if let audioURL = audioURL {
+            return [Comment.audioURLKey: audioURL.absoluteString,
+                    Comment.author: author.dictionaryRepresentation,
+                    Comment.timestampKey: timestamp.timeIntervalSince1970]
+        } else {
+            return [:]
+        }
     }
     
     static func ==(lhs: Comment, rhs: Comment) -> Bool {
