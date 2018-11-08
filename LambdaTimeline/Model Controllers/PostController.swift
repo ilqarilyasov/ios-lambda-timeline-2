@@ -54,12 +54,6 @@ class PostController {
         let comment = Comment(audioURL: audioURL, author: author)
         post.comments.append(comment)
         
-//        do {
-//            let data = try Data(contentsOf: audioURL)
-//            store(mediaData: data) { _ in }
-//        } catch {
-//            NSLog("Error converting audio to data")
-//        }
         savePostToFirebase(post)
     }
 

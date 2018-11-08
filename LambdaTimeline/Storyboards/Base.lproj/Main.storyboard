@@ -520,29 +520,56 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CommentCell" textLabel="a1p-af-m2r" detailTextLabel="KxJ-Oh-Ju8" style="IBUITableViewCellStyleSubtitle" id="gWx-Ba-4ra">
-                                <rect key="frame" x="0.0" y="133" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CommentCell" rowHeight="66" id="gWx-Ba-4ra" customClass="CommentTableViewCell" customModule="LambdaTimeline" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="133" width="375" height="66"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gWx-Ba-4ra" id="wtQ-2t-2R8">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="65.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="a1p-af-m2r">
-                                            <rect key="frame" x="16" y="3" width="31.5" height="22"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="16"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KxJ-Oh-Ju8">
-                                            <rect key="frame" x="16" y="25" width="42" height="16.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="12"/>
-                                            <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="bwY-ZW-2pk">
+                                            <rect key="frame" x="8" y="2" width="359" height="61.5"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="AzX-co-dJu">
+                                                    <rect key="frame" x="0.0" y="0.0" width="359" height="33"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G6f-H4-OCO">
+                                                            <rect key="frame" x="0.0" y="0.0" width="319" height="33"/>
+                                                            <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="16"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eZV-E1-LRY">
+                                                            <rect key="frame" x="327" y="0.0" width="32" height="33"/>
+                                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="16"/>
+                                                            <state key="normal" title="Play"/>
+                                                            <connections>
+                                                                <action selector="play:" destination="gWx-Ba-4ra" eventType="touchUpInside" id="75e-Ae-feB"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                </stackView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ikv-Ve-WZq">
+                                                    <rect key="frame" x="0.0" y="41" width="359" height="20.5"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="bwY-ZW-2pk" secondAttribute="trailing" constant="8" id="2xe-iF-uOk"/>
+                                        <constraint firstItem="bwY-ZW-2pk" firstAttribute="leading" secondItem="wtQ-2t-2R8" secondAttribute="leading" constant="8" id="Rcu-wM-3pu"/>
+                                        <constraint firstItem="bwY-ZW-2pk" firstAttribute="top" secondItem="wtQ-2t-2R8" secondAttribute="top" constant="2" id="cUr-FD-LAe"/>
+                                        <constraint firstAttribute="bottom" secondItem="bwY-ZW-2pk" secondAttribute="bottom" constant="2" id="qa9-oi-mT4"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="authorLabel" destination="Ikv-Ve-WZq" id="qwO-TR-yyb"/>
+                                    <outlet property="commentLabel" destination="G6f-H4-OCO" id="9sR-dA-QzN"/>
+                                    <outlet property="playButton" destination="eZV-E1-LRY" id="aL5-NO-Zr9"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -567,7 +594,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CdL-Y3-4ej" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2094" y="605"/>
+            <point key="canvasLocation" x="2093.5999999999999" y="604.94752623688157"/>
         </scene>
         <!--Add Comment View Controller-->
         <scene sceneID="xM4-7s-ikh">
@@ -578,7 +605,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="fP7-FB-VOB">
-                                <rect key="frame" x="16" y="269.5" width="343" height="128"/>
+                                <rect key="frame" x="16" y="268" width="343" height="131"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="gfe-KS-k40">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="29"/>
@@ -593,28 +620,31 @@
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add text comment:" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BTD-Nb-1TD">
                                         <rect key="frame" x="0.0" y="48" width="343" height="30"/>
                                         <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="aHu-Mz-Y41">
-                                        <rect key="frame" x="0.0" y="98" width="343" height="30"/>
+                                        <rect key="frame" x="0.0" y="98" width="343" height="33"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Lr-Uu-yoe">
-                                                <rect key="frame" x="0.0" y="0.0" width="109" height="30"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="109" height="33"/>
+                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="16"/>
                                                 <state key="normal" title="Record"/>
                                                 <connections>
                                                     <action selector="record:" destination="tDY-MB-zKf" eventType="touchUpInside" id="QeM-sc-ePA"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Jj-OV-FUw">
-                                                <rect key="frame" x="117" y="0.0" width="109" height="30"/>
+                                                <rect key="frame" x="117" y="0.0" width="109" height="33"/>
+                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="16"/>
                                                 <state key="normal" title="Play"/>
                                                 <connections>
                                                     <action selector="play:" destination="tDY-MB-zKf" eventType="touchUpInside" id="jIQ-mI-U6y"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c1Y-4H-6qE">
-                                                <rect key="frame" x="234" y="0.0" width="109" height="30"/>
+                                                <rect key="frame" x="234" y="0.0" width="109" height="33"/>
+                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="16"/>
                                                 <state key="normal" title="Send"/>
                                                 <connections>
                                                     <action selector="send:" destination="tDY-MB-zKf" eventType="touchUpInside" id="MGF-oL-NUe"/>
