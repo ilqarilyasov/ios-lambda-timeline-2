@@ -54,12 +54,12 @@ class PostController {
         let comment = Comment(audioURL: audioURL, author: author)
         post.comments.append(comment)
         
-        do {
-            let data = try Data(contentsOf: audioURL)
-            store(mediaData: data) { _ in }
-        } catch {
-            NSLog("Error converting audio to data")
-        }
+//        do {
+//            let data = try Data(contentsOf: audioURL)
+//            store(mediaData: data) { _ in }
+//        } catch {
+//            NSLog("Error converting audio to data")
+//        }
         savePostToFirebase(post)
     }
 
@@ -95,11 +95,45 @@ class PostController {
         
         ref.setValue(post.dictionaryRepresentation)
     }
+    
+    func storeAudio(audioData: Data, completion: @escaping (URL?) -> Void) {
+        let audioID = UUID().uuidString
+        
+        let audioRef = storageRef.child("audio_comments").child(audioID)
+        
+        let uploadTask = audioRef.putData(audioData, metadata: nil) { (metadata, error) in
+            if let error = error {
+                NSLog("Error storing media data: \(error)")
+                completion(nil)
+                return
+            }
+            
+            if metadata == nil {
+                NSLog("No metadata returned from upload task.")
+                completion(nil)
+                return
+            }
+            
+            audioRef.downloadURL(completion: { (url, error) in
+                
+                if let error = error {
+                    NSLog("Error getting download url of media: \(error)")
+                }
+                
+                guard let url = url else {
+                    NSLog("Download url is nil. Unable to create a Media object")
+                    completion(nil)
+                    return
+                }
+                completion(url)
+            })
+        }
+        uploadTask.resume()
+    }
 
-    private func store(mediaData: Data, mediaType: MediaType? = nil, completion: @escaping (URL?) -> Void) {
+    private func store(mediaData: Data, mediaType: MediaType, completion: @escaping (URL?) -> Void) {
         
         let mediaID = UUID().uuidString
-        guard let mediaType = mediaType else { return }
         
         let mediaRef = storageRef.child(mediaType.rawValue).child(mediaID)
         

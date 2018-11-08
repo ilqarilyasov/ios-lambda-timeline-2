@@ -15,6 +15,13 @@ class ImagePostDetailTableViewController: UITableViewController, UIPopoverPresen
         updateViews()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
     func updateViews() {
         
         guard let imageData = imageData,
@@ -47,6 +54,14 @@ class ImagePostDetailTableViewController: UITableViewController, UIPopoverPresen
         cell.detailTextLabel?.text = comment?.author.displayName
         
         return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "AddCommentSegue" {
+            let destVC = segue.destination as! AddCommentViewController
+            destVC.post = post
+            destVC.postController = postController
+        }
     }
 
     var post: Post!

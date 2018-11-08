@@ -14,7 +14,6 @@ class AddCommentViewController: UIViewController, AVAudioRecorderDelegate, AVAud
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        commentTextField.isEnabled = false
         recordButton.isEnabled = false
         playButton.isEnabled = false
     }
@@ -32,6 +31,7 @@ class AddCommentViewController: UIViewController, AVAudioRecorderDelegate, AVAud
             commentTextField.isEnabled = false
             recordButton.isEnabled = true
             playButton.isEnabled = true
+            commentTextField.text = ""
         }
     }
     
@@ -89,7 +89,19 @@ class AddCommentViewController: UIViewController, AVAudioRecorderDelegate, AVAud
     }
     
     @IBAction func send(_ sender: Any) {
-        
+        if let text = commentTextField.text, text != "" {
+            self.postController?.addComment(with: text, to: &self.post!)
+        } else if let audioURL = recordingURL {
+            
+            let data = try! Data(contentsOf: audioURL)
+            self.postController?.storeAudio(audioData: data, completion: { (url) in
+                guard let url2 = url else {
+                    NSLog("Audio url not returned")
+                    return
+                }
+                self.postController?.addComment2(with: url2, to: &self.post!)
+            })
+        }
     }
     
     class func requestRecordPermission() {
@@ -123,6 +135,8 @@ class AddCommentViewController: UIViewController, AVAudioRecorderDelegate, AVAud
         return dir.appendingPathComponent(UUID().uuidString).appendingPathExtension("caf")
     }
     
+    var post: Post?
+    var postController: PostController?
     private var recorder: AVAudioRecorder?
     private var player: AVAudioPlayer?
     private var recordingURL: URL?
