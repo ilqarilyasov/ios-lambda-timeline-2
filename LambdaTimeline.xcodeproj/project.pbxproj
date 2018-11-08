@@ -33,6 +33,7 @@
 		823B366921913A75004D585E /* UIImage+ScaleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823B366821913A75004D585E /* UIImage+ScaleImage.swift */; };
 		823F5F8421939C590029463B /* AddCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823F5F8321939C590029463B /* AddCommentViewController.swift */; };
 		823F5F862193E98D0029463B /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823F5F852193E98D0029463B /* CommentTableViewCell.swift */; };
+		823F5FB12194DFAB0029463B /* Date+Elapsed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823F5FB02194DFAB0029463B /* Date+Elapsed.swift */; };
 		E453457955DF907FCBD117F1 /* Pods_LambdaTimeline.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA39CACB677861CF84322FB5 /* Pods_LambdaTimeline.framework */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +68,7 @@
 		823B366821913A75004D585E /* UIImage+ScaleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+ScaleImage.swift"; sourceTree = "<group>"; };
 		823F5F8321939C590029463B /* AddCommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCommentViewController.swift; sourceTree = "<group>"; };
 		823F5F852193E98D0029463B /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
+		823F5FB02194DFAB0029463B /* Date+Elapsed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Elapsed.swift"; sourceTree = "<group>"; };
 		AA39CACB677861CF84322FB5 /* Pods_LambdaTimeline.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LambdaTimeline.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -211,6 +213,7 @@
 				46D571F42173CF3E00E7FF73 /* UIImage+Ratio.swift */,
 				46CFE6F621707FA600E7FF73 /* UIViewController+InformationalAlert.swift */,
 				823B366821913A75004D585E /* UIImage+ScaleImage.swift */,
+				823F5FB02194DFAB0029463B /* Date+Elapsed.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -391,6 +394,7 @@
 				46463790216FFD1B00E7FF73 /* Post.swift in Sources */,
 				46CFE6F32170757F00E7FF73 /* User+DictionaryRepresentation.swift in Sources */,
 				46D571F32172D43B00E7FF73 /* Cache.swift in Sources */,
+				823F5FB12194DFAB0029463B /* Date+Elapsed.swift in Sources */,
 				46CFE7012171559500E7FF73 /* FetchMediaOperation.swift in Sources */,
 				823F5F862193E98D0029463B /* CommentTableViewCell.swift in Sources */,
 				46D571F82173FC2700E7FF73 /* ImagePostDetailTableViewController.swift in Sources */,

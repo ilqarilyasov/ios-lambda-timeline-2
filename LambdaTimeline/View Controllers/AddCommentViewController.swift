@@ -99,6 +99,7 @@ class AddCommentViewController: UIViewController, AVAudioRecorderDelegate, AVAud
                     NSLog("Audio url not returned")
                     return
                 }
+                
                 self.postController?.addComment2(with: url2, to: &self.post!)
             })
         }

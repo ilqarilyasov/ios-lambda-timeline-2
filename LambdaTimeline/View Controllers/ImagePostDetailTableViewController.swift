@@ -56,7 +56,10 @@ class ImagePostDetailTableViewController: UITableViewController, CommentTableVie
             cell.authorLabel.text = comment?.author.displayName
             cell.playButton.isHidden = true
         } else if (comment?.audioURL) != nil {
-            cell.commentLabel.text = "Audio comment"
+            guard let time = comment?.timestamp else { return cell }
+            let dateString = Date().getElapsedInterval(fromDate: time)
+            
+            cell.commentLabel.text = "Audio comment \(dateString)"
             cell.authorLabel.text = comment?.author.displayName
             cell.playButton.isHidden = false
         }
@@ -106,7 +109,7 @@ class ImagePostDetailTableViewController: UITableViewController, CommentTableVie
         let playing = isPlaying ? "Stop" : "Play"
         button.setTitle(playing, for: .normal)
     }
-
+    
     var post: Post!
     var postController: PostController!
     var imageData: Data?
